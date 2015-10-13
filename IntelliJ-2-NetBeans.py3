@@ -3,42 +3,44 @@ import os
 import shutil
 from time import sleep
 
-## Controlli preliminari
-global jarExists
 jarExists = False
-def controlliPreliminari():
-    # Controllo directory corrente
-    if not (os.path.exists("src")) or not (os.path.exists(nomeProgetto+".iml")):
-        print("\n[ERR] La directory corrente non coincide col progetto specificato.")
+
+
+# Preliminar checks
+def check():
+    # Current directory check
+    if not (os.path.exists("src")) or not (os.path.exists(projectName + ".iml")):
+        print("\n[ERR] The current directory is not compatible with the specified project name.")
         quit(1)
-    # Esistenza artefatto JAR
-    if (os.path.exists("out")):
-        if (os.path.exists("out/artifacts")):
-            jarDir = os.listdir("out/artifacts")
-            if (len(jarDir) > 0):
-                jarFile = os.listdir("out/artifacts/"+jarDir[0])
-                if (len(jarFile) > 0):
+    # JAR artifact existence
+    if os.path.exists("out"):
+        if os.path.exists("out/artifacts"):
+            jar_dir = os.listdir("out/artifacts")
+            if len(jar_dir) > 0:
+                jar_file = os.listdir("out/artifacts/" + jar_dir[0])
+                if len(jar_file) > 0:
                     global jarExists
                     jarExists = True
 
-## Creazione progetto NetBeans
-# Generazione albero
-def generaDirectory():
-    print("\n* Creo la struttura delle directory...\r", end='')
-    os.mkdir("netbeaned")
-    os.mkdir("netbeaned/build")
-    os.mkdir("netbeaned/dist")
-    os.mkdir("netbeaned/nbproject")
-    os.mkdir("netbeaned/nbproject/private") # ?
-    sleep(0.25)
-    print("* Creo la struttura delle directory   \t\t[OK]")
 
-# Generazione file
-def generaFile():
-    print("* Creo i file del progetto...")
-    print("     * Genero project.properties...\r", end='')
-    projectProperties = open("netbeaned/nbproject/project.properties", 'w')
-    projectProperties.write("""annotation.processing.enabled=true
+# Directory tree generation
+def generate_directories():
+    print("\n* Generating directory structure...\r", end='')
+    os.mkdir("IntelliJ-2-NetBeans")
+    os.mkdir("IntelliJ-2-NetBeans/build")
+    os.mkdir("IntelliJ-2-NetBeans/dist")
+    os.mkdir("IntelliJ-2-NetBeans/nbproject")
+    os.mkdir("IntelliJ-2-NetBeans/nbproject/private")
+    sleep(0.25)
+    print("* Generating directory structure   \t\t[OK]")
+
+
+# Project files generation
+def generate_files():
+    print("* Creating project files...")
+    print("     * Generating project.properties...\r", end='')
+    project_properties = open("IntelliJ-2-NetBeans/nbproject/project.properties", 'w')
+    project_properties.write("""annotation.processing.enabled=true
 annotation.processing.enabled.in.editor=false
 annotation.processing.processor.options=
 annotation.processing.processors.list=
@@ -64,7 +66,7 @@ debug.test.classpath=\
 dist.archive.excludes=
 # This directory is removed when the project is cleaned:
 dist.dir=dist
-dist.jar=${dist.dir}/"""+nomeProgetto+""".jar
+dist.jar=${dist.dir}/""" + projectName + """.jar
 dist.javadoc.dir=${dist.dir}/javadoc
 excludes=
 includes=**
@@ -93,7 +95,7 @@ javadoc.splitindex=true
 javadoc.use=true
 javadoc.version=false
 javadoc.windowtitle=
-main.class="""+classeAvvio+"""
+main.class=""" + mainClass + """
 manifest.file=manifest.mf
 meta.inf.dir=${src.dir}/META-INF
 mkdist.disabled=false
@@ -111,18 +113,18 @@ run.test.classpath=\
 source.encoding=UTF-8
 src.dir=src
 test.src.dir=test""")
-    projectProperties.close()
+    project_properties.close()
     sleep(0.25)
-    print("     * Genero project.properties   \t\t[OK]")
+    print("     * Generating project.properties   \t\t[OK]")
 
-    print("     * Genero project.xml...\r", end='')
-    projectXml = open("netbeaned/nbproject/project.xml", 'w')
-    projectXml.write("""<?xml version="1.0" encoding="UTF-8"?>
+    print("     * Generating project.xml...\r", end='')
+    project_xml = open("IntelliJ-2-NetBeans/nbproject/project.xml", 'w')
+    project_xml.write("""<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://www.netbeans.org/ns/project/1">
     <type>org.netbeans.modules.java.j2seproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>"""+nomeProgetto+"""</name>
+            <name>""" + projectName + """</name>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -132,93 +134,98 @@ test.src.dir=test""")
         </data>
     </configuration>
 </project>""")
-    projectXml.close()
+    project_xml.close()
     sleep(0.25)
-    print("     * Genero project.xml   \t\t\t[OK]")
+    print("     * Generating project.xml   \t\t[OK]")
 
-    print("     * Genero build.xml...\r", end='')
-    buildXml = open("netbeaned/build.xml", 'w')
-    buildXml.write('''<?xml version="1.0" encoding="UTF-8"?>
-<project name="'''+nomeProgetto+'''" default="default" basedir=".">
-    <description>Builds, tests, and runs the project'''+nomeProgetto+'''.</description>
+    print("     * Generating build.xml...\r", end='')
+    build_xml = open("IntelliJ-2-NetBeans/build.xml", 'w')
+    build_xml.write('''<?xml version="1.0" encoding="UTF-8"?>
+<project name="''' + projectName + '''" default="default" basedir=".">
+    <description>Builds, tests, and runs the project''' + projectName + '''.</description>
     <import file="nbproject/build-impl.xml"/>
 </project>''')
-    buildXml.close()
+    build_xml.close()
     sleep(0.25)
-    print("     * Genero build.xml   \t\t\t[OK]")
+    print("     * Generating build.xml   \t\t\t[OK]")
 
-    print("     * Genero manifest.mf...\r", end='')
-    manifestMf = open("netbeaned/manifest.mf", 'w')
-    manifestMf.write("""Manifest-Version: 1.0
+    print("     * Generating manifest.mf...\r", end='')
+    manifest_mf = open("IntelliJ-2-NetBeans/manifest.mf", 'w')
+    manifest_mf.write("""Manifest-Version: 1.0
 X-COMMENT: Main-Class will be added automatically by build""")
-    manifestMf.close()
+    manifest_mf.close()
     sleep(0.25)
-    print("     * Genero manifest.mf   \t\t\t[OK]")
+    print("     * Generating manifest.mf   \t\t[OK]")
 
-    print("     * Genero build-impl.xml...\r", end='')
-    shutil.copy(os.path.dirname(os.path.realpath(__file__))+"/build-impl.xml", "netbeaned/nbproject")
-    with open("netbeaned/nbproject/build-impl.xml.new", 'wt') as buildOut:
-        with open("netbeaned/nbproject/build-impl.xml", 'rt') as buildIn:
-            for line in buildIn:
-                buildOut.write(line.replace("netbeans_test", nomeProgetto))
-    os.remove("netbeaned/nbproject/build-impl.xml")
-    os.rename("netbeaned/nbproject/build-impl.xml.new", "netbeaned/nbproject/build-impl.xml")
+    print("     * Generating build-impl.xml...\r", end='')
+    shutil.copy(os.path.dirname(os.path.realpath(__file__)) + "/build-impl.xml", "IntelliJ-2-NetBeans/nbproject")
+    with open("IntelliJ-2-NetBeans/nbproject/build-impl.xml.new", 'wt') as buildOut:
+        with open("IntelliJ-2-NetBeans/nbproject/build-impl.xml", 'rt') as buildIn:
+            for buildIn_line in buildIn:
+                buildOut.write(buildIn_line.replace("netbeans_test", projectName))
+    os.remove("IntelliJ-2-NetBeans/nbproject/build-impl.xml")
+    os.rename("IntelliJ-2-NetBeans/nbproject/build-impl.xml.new", "IntelliJ-2-NetBeans/nbproject/build-impl.xml")
     sleep(0.25)
-    print("     * Genero build-impl.xml   \t\t\t[OK]")
+    print("     * Generating build-impl.xml   \t\t[OK]")
 
-# Copia del sorgente
-def copiaSorgente():
-    print("* Copio il sorgente Java...\r", end='')
-    shutil.copytree("src", "netbeaned/src")
+
+# Source code copy
+def copy_source_code():
+    print("* Copying Java source code...\r", end='')
+    shutil.copytree("src", "IntelliJ-2-NetBeans/src")
     sleep(0.25)
-    print("* Copio il sorgente Java   \t\t\t[OK]")
+    print("* Copying Java source code   \t\t\t[OK]")
 
-# Copia JAR
-def copiaJAR():
-    print("* Copio l'artefatto JAR...\r", end='')
-    jarDir = os.listdir("out/artifacts")
-    jarFile = os.listdir("out/artifacts/"+jarDir[0])
-    shutil.copy2('out/artifacts/'+jarDir[0]+'/'+jarFile[0], 'netbeaned/dist')
+
+# JAR copy
+def copy_jar_file():
+    print("* Copying JAR artifact...\r", end='')
+    jar_dir = os.listdir("out/artifacts")
+    jar_file = os.listdir("out/artifacts/" + jar_dir[0])
+    shutil.copy2('out/artifacts/' + jar_dir[0] + '/' + jar_file[0], 'IntelliJ-2-NetBeans/dist')
     sleep(0.25)
-    print("* Copio l'artefatto JAR   \t\t\t[OK]")
+    print("* Copying JAR artifact   \t\t\t[OK]")
 
-# Swap di cartelle
-def copiaCartelle():
-    print("* Rinomino la cartella del progetto...\r", end='')
-    os.rename("netbeaned", nomeProgetto+"_netbeaned")
+
+# Folder renaming
+def rename_project_folder():
+    print("* Renaming the project folder...\r", end='')
+    os.rename("IntelliJ-2-NetBeans", projectName + "_IntelliJ-2-NetBeans")
     sleep(0.25)
-    print("* Rinomino la cartella del progetto   \t\t[OK]")
-
-def generaProgetto():
-    generaDirectory()
-    generaFile()
-
-def copiaProgetto():
-    copiaSorgente()
-    if (jarExists):
-        copiaJAR()
-    copiaCartelle()
+    print("* Renaming the project folder   \t\t[OK]")
 
 
-foo, nomeProgetto = os.path.split(os.getcwd())
-nomeProgettoInput = input(">>> Nome del progetto ["+nomeProgetto+"]: ")
-if nomeProgettoInput.strip():
-    nomeProgetto = nomeProgettoInput
+def configure():
+    generate_directories()
+    generate_files()
 
-classeAvvio = ""
-if (os.path.exists("src/META-INF/MANIFEST.MF")):
+
+def make():
+    copy_source_code()
+    if jarExists:
+        copy_jar_file()
+    rename_project_folder()
+
+
+foo, projectName = os.path.split(os.getcwd())
+projectNameInput = input(">>> Project name [" + projectName + "]: ")
+if projectNameInput.strip():
+    projectName = projectNameInput
+
+mainClass = ""
+if os.path.exists("src/META-INF/MANIFEST.MF"):
     for line in open("src/META-INF/MANIFEST.MF"):
         if "Main-Class:" in line:
-            classeAvvio = line.replace("Main-Class: ", "").strip()
-classeAvvioInput = input(">>> Classe di avvio ["+classeAvvio+"]: ")
-if classeAvvioInput.strip():
-    classeAvvio = classeAvvioInput
-if not classeAvvio.strip():
-    print("\n[ERR] La classe di avvio deve essere specificata.")
+            mainClass = line.replace("Main-Class: ", "").strip()
+mainClassInput = input(">>> Main class [" + mainClass + "]: ")
+if mainClassInput.strip():
+    mainClass = mainClassInput
+if not mainClass.strip():
+    print("\n[ERR] You must specify a main class.")
     quit(1)
 
-controlliPreliminari()
-generaProgetto()
-copiaProgetto()
+check()
+configure()
+make()
 
-print("\n* Conversione completata!")
+print("\n* Conversion complete!")
