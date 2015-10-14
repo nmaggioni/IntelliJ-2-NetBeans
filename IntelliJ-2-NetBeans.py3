@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import shutil
-from time import sleep
 from jinja2 import Template
 
 jarExists = False
@@ -39,7 +38,6 @@ def generate_directories():
     os.mkdir("IntelliJ-2-NetBeans/dist")
     os.mkdir("IntelliJ-2-NetBeans/nbproject")
     os.mkdir("IntelliJ-2-NetBeans/nbproject/private")
-    sleep(0.25)
     print("* Generating directory structure   \t\t[OK]")
 
 
@@ -51,7 +49,6 @@ def generate_files():
     project_properties = open("IntelliJ-2-NetBeans/nbproject/project.properties", 'w')
     project_properties.write(template.render(projectName=projectName, mainClass=mainClass))
     project_properties.close()
-    sleep(0.25)
     print("     * Generating project.properties   \t\t[OK]")
 
     print("     * Generating project.xml...\r", end='')
@@ -59,7 +56,6 @@ def generate_files():
     project_xml = open("IntelliJ-2-NetBeans/nbproject/project.xml", 'w')
     project_xml.write(template.render(projectName=projectName))
     project_xml.close()
-    sleep(0.25)
     print("     * Generating project.xml   \t\t[OK]")
 
     print("     * Generating build.xml...\r", end='')
@@ -67,12 +63,10 @@ def generate_files():
     build_xml = open("IntelliJ-2-NetBeans/build.xml", 'w')
     build_xml.write(template.render(projectName=projectName))
     build_xml.close()
-    sleep(0.25)
     print("     * Generating build.xml   \t\t\t[OK]")
 
     print("     * Copying manifest.mf...\r", end='')
     shutil.copy(os.path.dirname(os.path.realpath(__file__)) + "/res/manifest.mf", "IntelliJ-2-NetBeans/manifest.mf")
-    sleep(0.25)
     print("     * Copying manifest.mf   \t\t\t[OK]")
 
     print("     * Generating build-impl.xml...\r", end='')
@@ -80,7 +74,6 @@ def generate_files():
     build_impl_xml = open("IntelliJ-2-NetBeans/nbproject/build-impl.xml", 'w')
     build_impl_xml.write(template.render(projectName=projectName))
     build_impl_xml.close()
-    sleep(0.25)
     print("     * Generating build-impl.xml   \t\t[OK]")
 
 
@@ -88,7 +81,6 @@ def generate_files():
 def copy_source_code():
     print("* Copying Java source code...\r", end='')
     shutil.copytree("src", "IntelliJ-2-NetBeans/src")
-    sleep(0.25)
     print("* Copying Java source code   \t\t\t[OK]")
 
 
@@ -98,7 +90,6 @@ def copy_jar_file():
     jar_dir = os.listdir("out/artifacts")
     jar_file = os.listdir("out/artifacts/" + jar_dir[0])
     shutil.copy2('out/artifacts/' + jar_dir[0] + '/' + jar_file[0], 'IntelliJ-2-NetBeans/dist')
-    sleep(0.25)
     print("* Copying JAR artifact   \t\t\t[OK]")
 
 
@@ -106,7 +97,6 @@ def copy_jar_file():
 def rename_project_folder():
     print("* Renaming the project folder...\r", end='')
     os.rename("IntelliJ-2-NetBeans", projectName + "_IntelliJ-2-NetBeans")
-    sleep(0.25)
     print("* Renaming the project folder   \t\t[OK]")
 
 
