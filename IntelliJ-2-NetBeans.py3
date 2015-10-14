@@ -9,9 +9,16 @@ jarExists = False
 
 # Preliminar checks
 def check():
-    # Current directory check
+    # Current directory
     if not (os.path.exists("src")) or not (os.path.exists(projectName + ".iml")):
         print("\n[ERR] The current directory is not compatible with the specified project name.")
+        quit(1)
+    # Existing directories
+    if os.path.exists("IntelliJ-2-NetBeans"):
+        print("\n[ERR] The conversion temporary folder (IntelliJ-2-NetBeans) already exists.")
+        quit(1)
+    if os.path.exists(projectName + "_IntelliJ-2-NetBeans"):
+        print("\n[ERR] The converted project folder ("+ projectName + "_IntelliJ-2-NetBeans) already exists.")
         quit(1)
     # JAR artifact existence
     if os.path.exists("out"):
