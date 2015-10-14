@@ -1,0 +1,4 @@
+<project name="{{ projectName }}" default="default" basedir=".">
+    <description>Builds, tests, and runs the project {{ projectName }}.</description>
+    <import file="nbproject/build-impl.xml"/>
+</project>
