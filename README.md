@@ -2,6 +2,10 @@ IntelliJ-2-NetBeans
 ===================
 A simple Python script to convert an IntelliJ IDEA project to a NetBeans one.
 
+Installation
+------------
+Get the ```v1.0``` tag if you want the older but stand-alone script version, or get the ```v1.1``` tag to get the new and optimized version that uses the *Jinja* templating engine (install it using ```pip install jinja2```).
+
 Usage
 -----
 Open up a terminal and navigate to your IntelliJ IDEA project folder, then run this script from wherever you cloned the repo. It does not need to be in the project folder.
