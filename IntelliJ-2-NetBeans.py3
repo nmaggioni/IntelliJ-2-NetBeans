@@ -207,6 +207,12 @@ def make():
     rename_project_folder()
 
 
+print("""
+    ╦┌┐┌┌┬┐┌─┐┬  ┬  ┬ ╦       ╔╗╔┌─┐┌┬┐╔╗ ┌─┐┌─┐┌┐┌┌─┐
+    ║│││ │ ├┤ │  │  │ ║── 2 ──║║║├┤  │ ╠╩╗├┤ ├─┤│││└─┐
+    ╩┘└┘ ┴ └─┘┴─┘┴─┘┴╚╝       ╝╚╝└─┘ ┴ ╚═╝└─┘┴ ┴┘└┘└─┘
+""")
+
 foo, projectName = os.path.split(os.getcwd())
 projectNameInput = input(">>> Project name [" + projectName + "]: ")
 if projectNameInput.strip():
