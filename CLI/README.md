@@ -1,6 +1,6 @@
 IntelliJ-2-NetBeans
 ===================
-A simple Python script to convert an IntelliJ IDEA project to a NetBeans one.
+A Python script to convert an IntelliJ IDEA project to a NetBeans one.
 
 Installation
 ------------
