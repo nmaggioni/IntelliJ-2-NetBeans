@@ -1,3 +1,5 @@
+package nmaggioni.intellij2netbeans;
+
 class MissingFileException extends Exception {
     private final String fileName;
 

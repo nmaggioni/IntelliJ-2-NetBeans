@@ -1,3 +1,5 @@
+package nmaggioni.intellij2netbeans;
+
 class MissingDirectoryException extends Exception {
     private final String dirName;
 

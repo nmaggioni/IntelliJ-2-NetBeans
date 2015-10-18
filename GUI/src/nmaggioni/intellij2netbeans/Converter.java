@@ -1,3 +1,5 @@
+package nmaggioni.intellij2netbeans;
+
 import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;

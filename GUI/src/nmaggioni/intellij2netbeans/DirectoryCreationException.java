@@ -1,3 +1,5 @@
+package nmaggioni.intellij2netbeans;
+
 class DirectoryCreationException extends Exception {
     private final String dirName;
 

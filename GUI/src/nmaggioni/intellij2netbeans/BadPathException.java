@@ -1,3 +1,5 @@
+package nmaggioni.intellij2netbeans;
+
 class BadPathException extends Exception {
     private final String dirPath;
 
