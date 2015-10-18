@@ -131,13 +131,12 @@ class Converter {
     }
 
     private void createProjectTree() throws DirectoryCreationException {
-        List<String> directories = new ArrayList<String>() {{
-            add("IntelliJ-2-NetBeans");
-            add("IntelliJ-2-NetBeans/build");
-            add("IntelliJ-2-NetBeans/dist");
-            add("IntelliJ-2-NetBeans/nbproject");
-            add("IntelliJ-2-NetBeans/nbproject/private");
-        }};
+        List<String> directories = new ArrayList<>();
+        directories.add("IntelliJ-2-NetBeans");
+        directories.add("IntelliJ-2-NetBeans/build");
+        directories.add("IntelliJ-2-NetBeans/dist");
+        directories.add("IntelliJ-2-NetBeans/nbproject");
+        directories.add("IntelliJ-2-NetBeans/nbproject/private");
         boolean success;
         for (String directory : directories) {
             success = (new File(projectPath + "/" + directory)).mkdir();
