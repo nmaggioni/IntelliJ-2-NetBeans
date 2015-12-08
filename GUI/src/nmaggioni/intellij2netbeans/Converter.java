@@ -135,6 +135,7 @@ class Converter {
         directories.add("IntelliJ-2-NetBeans");
         directories.add("IntelliJ-2-NetBeans/build");
         directories.add("IntelliJ-2-NetBeans/dist");
+        directories.add("IntelliJ-2-NetBeans/test");
         directories.add("IntelliJ-2-NetBeans/nbproject");
         directories.add("IntelliJ-2-NetBeans/nbproject/private");
         boolean success;
