@@ -6,6 +6,12 @@ A Java GUI script to convert an IntelliJ IDEA project to a NetBeans one. Built w
 
 Usage
 -----
-Just issue a ```java -jar /path/to/IntelliJ-2-NetBeans.jar```, or double click the JAR file if your OS supports it.
++ Set up a [JAR][1] as per [IntelliJ IDEA documentation][2] ([here][3] a more visual guide).
++ Issue ```java -jar /path/to/IntelliJ-2-NetBeans.jar``` from a command line or double click the JAR file if your OS supports it.
++ Specify the project's folder and click the **Convert** button.
 
 A folder named ```<YourProjectName>_IntelliJ-2-NetBeans``` will be created in your project folder, containing your new NetBeans project. The program will generate the needed files and copy over your source code and JAR artifacts.  
+
+[1]: https://www.jetbrains.com/idea/help/create-jar-from-modules-dialog.html
+[2]: https://www.jetbrains.com/idea/help/configuring-artifacts.html
+[3]: https://blog.jetbrains.com/idea/2010/08/quickly-create-jar-artifact/
