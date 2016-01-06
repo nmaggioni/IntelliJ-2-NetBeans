@@ -1,6 +1,6 @@
 IntelliJ-2-NetBeans
 ===================
-A Java GUI script to convert an IntelliJ IDEA project to a NetBeans one. Built with Swing.
+A Java GUI to convert an IntelliJ IDEA project to a NetBeans one. Designed with Swing.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/10a7e4194f82425688575eb6ece0a615)](https://www.codacy.com/app/nmaggioni/IntelliJ-2-NetBeans)
 
